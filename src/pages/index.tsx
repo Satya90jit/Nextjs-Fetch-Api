@@ -1,5 +1,6 @@
 import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 // this is a house now it creating   //  when anything new in the house the house rebuild( state , props)
@@ -12,12 +13,7 @@ export default function Home() {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/posts"
       ); // first fetch
-
-      // console.log("response--->", response);
-
-      const data = await response.json();
-
-      // console.log("data---->", data);
+      const data = await response.json(); // json() method works for get the json data , and convert the json into javascript object format
       setPosts(data);
     };
     getAllPost();
@@ -27,15 +23,25 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <section className="grid grid-cols-4 gap-5 mx-20 my-20">
+      <h1 className="text-gray-800 text-3xl font-semibold text-center my-5">
+        All Posts
+      </h1>
+      <section className="grid grid-cols-4 gap-5 mx-20 my-14">
         {posts?.map((item: any) => {
           return (
-            <div className="bg-blue-400/20 border border-blue-600 rounded-lg p-3 space-y-2">
-              <h3 className="text-lg font-semibold text-blue-900">
-                {item?.title}
-              </h3>
-              <p className="text-gray-600 text-sm">{item?.body}</p>
-            </div>
+            <Link href={`post/${item?.id}`}>
+              <div className="bg-blue-400/20 border border-blue-600 rounded-lg p-3 space-y-2 hover:scale-105 transition-all duration-300 cursor-pointer">
+                <div className="">
+                  <h1 className="text-3xl font-semibold text-gray-700">
+                    {item?.id}
+                  </h1>
+                  <h3 className="text-lg font-semibold text-blue-900">
+                    {item?.title}
+                  </h3>
+                </div>
+                <p className="text-gray-600 text-sm">{item?.body}</p>
+              </div>
+            </Link>
           );
         })}
       </section>
