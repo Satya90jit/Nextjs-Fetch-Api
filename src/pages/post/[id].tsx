@@ -7,12 +7,14 @@ const PostDetail = ({ item }: any) => {
   const [singlePost, setSinglePost] = useState<any>({});
   const router = useRouter();
 
-  console.log("router---->", router?.query?.postId);
+  const postId = router?.query?.id;
+
+  console.log("getId---->", router?.query?.postId);
 
   useEffect(() => {
     const getPostDetailsById = async () => {
       const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${router?.query?.postId}`
+        `https://jsonplaceholder.typicode.com/posts/${postId}`
       );
 
       const singlePostData = await response.json();
